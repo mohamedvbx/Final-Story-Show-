@@ -1,1 +1,395 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض القصة</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #fff;
+            --navbar-bg: #fff;
+            --footer-bg: #4a6fa5;
+            --footer-text: #fff;
+            --separator-color: #e0e0e0;
+            --font-family: 'Tajawal', Arial, sans-serif;
+        }
 
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--separator-color);
+        }
+
+        .theme-selector {
+            position: relative;
+        }
+
+        .theme-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-family);
+        }
+
+        .theme-dropdown {
+            display: none;
+            position: absolute;
+            background-color: var(--card-bg);
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1;
+            right: 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .theme-dropdown a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .theme-dropdown a:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .story-title {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .story-type {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .story-content {
+            line-height: 1.8;
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        .author-section {
+            display: flex;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--separator-color);
+        }
+
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 15px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        .error-message {
+            color: #d9534f;
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            border: 1px solid #d9534f;
+            border-radius: 5px;
+            background-color: #f8d7da;
+            margin: 20px 0;
+        }
+
+        .back-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* الثيمات المختلفة */
+        .theme-default {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #fff;
+            --navbar-bg: #fff;
+            --footer-bg: #4a6fa5;
+            --footer-text: #fff;
+            --separator-color: #e0e0e0;
+        }
+
+        .theme-dark {
+            --primary-color: #6a8cc7;
+            --secondary-color: #3a7ca5;
+            --text-color: #f8f9fa;
+            --bg-color: #1a1a2e;
+            --card-bg: #16213e;
+            --navbar-bg: #16213e;
+            --footer-bg: #0f3460;
+            --footer-text: #f8f9fa;
+            --separator-color: #2a3a5a;
+        }
+
+        .theme-nature {
+            --primary-color: #2e8b57;
+            --secondary-color: #3cb371;
+            --text-color: #2f4f4f;
+            --bg-color: #f0fff0;
+            --card-bg: #e0ffe0;
+            --navbar-bg: #98fb98;
+            --footer-bg: #2e8b57;
+            --footer-text: #fff;
+            --separator-color: #a8d8a8;
+        }
+
+        .theme-royal {
+            --primary-color: #9370db;
+            --secondary-color: #8a2be2;
+            --text-color: #4b0082;
+            --bg-color: #f8f8ff;
+            --card-bg: #e6e6fa;
+            --navbar-bg: #d8bfd8;
+            --footer-bg: #9370db;
+            --footer-text: #fff;
+            --separator-color: #d0c0e0;
+        }
+
+        .theme-warm {
+            --primary-color: #ff7f50;
+            --secondary-color: #ff6347;
+            --text-color: #8b0000;
+            --bg-color: #fff5ee;
+            --card-bg: #ffebcd;
+            --navbar-bg: #ffdead;
+            --footer-bg: #ff7f50;
+            --footer-text: #fff;
+            --separator-color: #ffd0b0;
+        }
+
+        .theme-cool {
+            --primary-color: #4682b4;
+            --secondary-color: #5f9ea0;
+            --text-color: #2f4f4f;
+            --bg-color: #f0f8ff;
+            --card-bg: #e0ffff;
+            --navbar-bg: #afeeee;
+            --footer-bg: #4682b4;
+            --footer-text: #fff;
+            --separator-color: #a0d0e0;
+        }
+
+        .theme-sunset {
+            --primary-color: #ff7e5f;
+            --secondary-color: #feb47b;
+            --text-color: #5a3d2b;
+            --bg-color: #fff9f2;
+            --card-bg: #ffe8d6;
+            --navbar-bg: #ffd1b3;
+            --footer-bg: #ff7e5f;
+            --footer-text: #fff;
+            --separator-color: #ffb38a;
+        }
+
+        .theme-ocean {
+            --primary-color: #1e88e5;
+            --secondary-color: #0d47a1;
+            --text-color: #0d2b4e;
+            --bg-color: #e3f2fd;
+            --card-bg: #bbdefb;
+            --navbar-bg: #90caf9;
+            --footer-bg: #1e88e5;
+            --footer-text: #fff;
+            --separator-color: #42a5f5;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-default">
+    <div class="container">
+        <header>
+            <div>
+                <h1 id="story-title" class="story-title">
+                    <span id="story-type" class="story-type" style="display: none;"></span>
+                    <span id="title-text">عنوان القصة</span>
+                </h1>
+            </div>
+            <div class="theme-selector">
+                <button onclick="toggleThemeDropdown()" class="theme-btn">الثيمات</button>
+                <div id="themeDropdown" class="theme-dropdown">
+                    <a href="#" onclick="changeTheme('theme-default')">الافتراضي</a>
+                    <a href="#" onclick="changeTheme('theme-dark')">الليلي</a>
+                    <a href="#" onclick="changeTheme('theme-nature')">الطبيعة</a>
+                    <a href="#" onclick="changeTheme('theme-royal')">الملكي</a>
+                    <a href="#" onclick="changeTheme('theme-warm')">الدافئ</a>
+                    <a href="#" onclick="changeTheme('theme-cool')">البارد</a>
+                    <a href="#" onclick="changeTheme('theme-sunset')">الغروب</a>
+                    <a href="#" onclick="changeTheme('theme-ocean')">المحيط</a>
+                </div>
+            </div>
+        </header>
+
+        <div id="error-container" style="display: none;">
+            <div class="error-message">
+                حدث خطأ في جلب بيانات القصة. يرجى التأكد من صحة الرابط أو إعادة المحاولة لاحقًا.
+            </div>
+            <a href="index.html" class="back-btn">العودة إلى القائمة الرئيسية</a>
+        </div>
+
+        <div id="story-container">
+            <div id="story-content" class="story-content">
+                جاري تحميل محتوى القصة...
+            </div>
+
+            <div class="author-section">
+                <img id="author-img" class="author-img" src="" alt="صورة المؤلف">
+                <div class="author-info">
+                    <h3 id="author-name" class="author-name">اسم المؤلف</h3>
+                </div>
+            </div>
+
+            <a href="index.html" class="back-btn">العودة إلى القائمة الرئيسية</a>
+        </div>
+    </div>
+
+    <script>
+        // تغيير الثيمات
+        function toggleThemeDropdown() {
+            document.getElementById("themeDropdown").classList.toggle("show");
+        }
+
+        function changeTheme(themeName) {
+            document.body.className = themeName;
+            localStorage.setItem('selectedTheme', themeName);
+            toggleThemeDropdown();
+        }
+
+        // إغلاق القائمة المنسدلة عند النقر خارجها
+        window.onclick = function(event) {
+            if (!event.target.matches('.theme-btn')) {
+                var dropdowns = document.getElementsByClassName("theme-dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        // جلب بيانات القصة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحميل الثيم المحفوظ
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+                document.body.className = savedTheme;
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const storyName = urlParams.get('story');
+
+            if (storyName) {
+                fetch(`stories/${storyName}.json`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        displayStoryData(data);
+                    })
+                    .catch(error => {
+                        console.error("Error fetching story:", error);
+                        showError('حدث خطأ في جلب بيانات القصة. يرجى التأكد من اسم القصة.');
+                    });
+            } else {
+                showError('لم يتم تحديد قصة. يرجى التأكد من الرابط.');
+            }
+
+            function displayStoryData(storyData) {
+                document.getElementById('title-text').textContent = storyData.title;
+                document.getElementById('author-name').textContent = storyData.author;
+                document.getElementById('story-content').innerHTML = storyData.content.replace(/\n/g, '<br>');
+                
+                // عرض نوع القصة إذا كان موجوداً
+                if (storyData.type) {
+                    document.getElementById('story-type').textContent = storyData.type;
+                    document.getElementById('story-type').style.display = 'inline-block';
+                }
+
+                // صورة الكاتب
+                if (storyData.authorImage) {
+                    document.getElementById('author-img').src = storyData.authorImage;
+                } else {
+                    document.getElementById('author-img').src = 'https://via.placeholder.com/60';
+                }
+            }
+
+            function showError(message) {
+                document.getElementById('story-container').style.display = 'none';
+                document.getElementById('error-container').style.display = 'block';
+                document.querySelector('.error-message').textContent = message;
+            }
+        });
+    </script>
+</body>
+  </html>
