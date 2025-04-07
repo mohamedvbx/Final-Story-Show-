@@ -2,7 +2,7 @@
   {
     "title": "الرحلة الغامضة",
     "genre": ["مغامرة", "خيال علمي"],
-    "filename": "mystery-journey.json",
+    "filename": "test.json",
     "description": "قصة شاب يكتشف بوابة إلى عالم آخر في منزله القديم",
     "author": "أحمد محمد",
     "authorImage": "https://example.com/authors/ahmed.jpg"
