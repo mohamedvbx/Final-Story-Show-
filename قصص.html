@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قصص</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #fff;
+            --navbar-bg: #fff;
+            --search-bg: #f1f3f5;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --favorite-color: #ff4757;
+            --separator-color: #e0e0e0;
+            --footer-bg: #4a6fa5;
+            --footer-text: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100%;
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--navbar-bg);
+            padding: 8px 20px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: 56px;
+            border-bottom: 1px solid var(--separator-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 100%;
+            gap: 10px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .search-box {
+            border: none;
+            background: var(--search-bg);
+            border-radius: 20px;
+            padding: 8px 15px;
+            width: 100%;
+            color: var(--text-color);
+            outline: none;
+            padding-right: 40px;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            min-width: 40px;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .action-btn i {
+            font-size: 14px;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        /* تعديلات القائمة المنسدلة */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 10px;
+            width: 180px;
+            z-index: 10;
+            text-align: center;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-option {
+            padding: 6px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 4px;
+            transition: var(--transition);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dropdown-option:hover {
+            background-color: var(--search-bg);
+        }
+
+        .dropdown-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-option i {
+            margin-left: 8px;
+        }
+
+        /* Stories List */
+        h1 {
+            text-align: center;
+            margin: 20px 0 30px;
+            color: var(--primary-color);
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .stories-list {
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .story-item {
+            background-color: var(--card-bg);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 0;
+            box-shadow: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--separator-color);
+            width: 100%;
+        }
+
+        .story-item:last-child {
+            border-bottom: none;
+        }
+
+        .story-item:hover {
+            background-color: var(--search-bg);
+        }
+
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .story-title {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-color);
+        }
+
+        .story-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .story-genre {
+            font-size: 13px;
+            color: var(--secondary-color);
+            opacity: 0.8;
+        }
+
+        .favorite-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #ccc;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .favorite-btn.active {
+            color: var(--favorite-color);
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.2);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .copyright {
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 8px 0;
+            }
+            
+            .search-container {
+                order: 1;
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            
+            .header-actions {
+                order: 2;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .dropdown-content {
+                right: 50%;
+                transform: translateX(50%);
+                width: 200px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin: 15px 0 20px;
+            }
+
+            .story-item {
+                padding: 12px 15px;
+            }
+
+            .story-title {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .action-btn span {
+                display: none;
+            }
+            
+            .action-btn {
+                width: 36px;
+                height: 36px;
+                padding: 0;
+            }
+            
+            .story-item {
+                padding: 10px 12px;
+            }
+
+            .story-title {
+                font-size: 15px;
+            }
+
+            .story-genre {
+                font-size: 12px;
+            }
+        }
+
+        /* الثيمات المختلفة */
+        .theme-default {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #fff;
+            --navbar-bg: #fff;
+            --search-bg: #f1f3f5;
+            --footer-bg: #4a6fa5;
+            --footer-text: #fff;
+            --favorite-color: #ff4757;
+            --separator-color: #e0e0e0;
+        }
+
+        .theme-dark {
+            --primary-color: #6a8cc7;
+            --secondary-color: #3a7ca5;
+            --text-color: #f8f9fa;
+            --bg-color: #1a1a2e;
+            --card-bg: #16213e;
+            --navbar-bg: #16213e;
+            --search-bg: #0f3460;
+            --footer-bg: #0f3460;
+            --footer-text: #f8f9fa;
+            --favorite-color: #ff6b81;
+            --separator-color: #2a3a5a;
+        }
+
+        .theme-nature {
+            --primary-color: #2e8b57;
+            --secondary-color: #3cb371;
+            --text-color: #2f4f4f;
+            --bg-color: #f0fff0;
+            --card-bg: #e0ffe0;
+            --navbar-bg: #98fb98;
+            --search-bg: #c1ffc1;
+            --footer-bg: #2e8b57;
+            --footer-text: #fff;
+            --favorite-color: #ff6348;
+            --separator-color: #a8d8a8;
+        }
+
+        .theme-royal {
+            --primary-color: #9370db;
+            --secondary-color: #8a2be2;
+            --text-color: #4b0082;
+            --bg-color: #f8f8ff;
+            --card-bg: #e6e6fa;
+            --navbar-bg: #d8bfd8;
+            --search-bg: #e6e6fa;
+            --footer-bg: #9370db;
+            --footer-text: #fff;
+            --favorite-color: #ff1493;
+            --separator-color: #d0c0e0;
+        }
+
+        .theme-warm {
+            --primary-color: #ff7f50;
+            --secondary-color: #ff6347;
+            --text-color: #8b0000;
+            --bg-color: #fff5ee;
+            --card-bg: #ffebcd;
+            --navbar-bg: #ffdead;
+            --search-bg: #ffe4c4;
+            --footer-bg: #ff7f50;
+            --footer-text: #fff;
+            --favorite-color: #ff0000;
+            --separator-color: #ffd0b0;
+        }
+
+        .theme-cool {
+            --primary-color: #4682b4;
+            --secondary-color: #5f9ea0;
+            --text-color: #2f4f4f;
+            --bg-color: #f0f8ff;
+            --card-bg: #e0ffff;
+            --navbar-bg: #afeeee;
+            --search-bg: #b0e0e6;
+            --footer-bg: #4682b4;
+            --footer-text: #fff;
+            --favorite-color: #1e90ff;
+            --separator-color: #a0d0e0;
+        }
+
+        .theme-sunset {
+            --primary-color: #ff7e5f;
+            --secondary-color: #feb47b;
+            --text-color: #5a3d2b;
+            --bg-color: #fff9f2;
+            --card-bg: #ffe8d6;
+            --navbar-bg: #ffd1b3;
+            --search-bg: #ffc4a3;
+            --footer-bg: #ff7e5f;
+            --footer-text: #fff;
+            --favorite-color: #e25822;
+            --separator-color: #ffb38a;
+        }
+
+        .theme-ocean {
+            --primary-color: #1e88e5;
+            --secondary-color: #0d47a1;
+            --text-color: #0d2b4e;
+            --bg-color: #e3f2fd;
+            --card-bg: #bbdefb;
+            --navbar-bg: #90caf9;
+            --search-bg: #64b5f6;
+            --footer-bg: #1e88e5;
+            --footer-text: #fff;
+            --favorite-color: #01579b;
+            --separator-color: #42a5f5;
+        }
+
+        /* رسالة عدم الاتصال */
+        .offline-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #ff4757;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+            display: none;
+        }
+
+        /* رسالة خطأ في البيانات */
+        .data-error-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: none;
+            max-width: 300px;
+        }
+
+        .data-error-message button {
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="theme-default">
+    <!-- رسالة عدم الاتصال -->
+    <div class="offline-message" id="offlineMessage">
+        <i class="fas fa-wifi"></i> الرجاء الاتصال بالإنترنت للحصول على أحدث القصص
+    </div>
+
+    <!-- رسالة خطأ في البيانات -->
+    <div class="data-error-message" id="dataErrorMessage">
+        <p>حدث خطأ في عرض القصص</p>
+        <button id="contactAdminBtn">تواصل مع الإدارة</button>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="search-container">
+                <input type="text" class="search-box" id="searchInput" placeholder="ابحث عن قصة، نوع، أو كاتب...">
+                <i class="fas fa-search search-icon" id="searchIcon"></i>
+            </div>
+            
+            <div class="header-actions">
+                <div class="dropdown">
+                    <button class="action-btn" id="genreToggle" title="تصفية حسب النوع">
+                        <i class="fas fa-filter"></i>
+                        <span class="action-text">أنواع</span>
+                    </button>
+                    <div class="dropdown-content" id="genreDropdown">
+                        <!-- سيتم ملؤها ديناميكياً -->
+                    </div>
+                </div>
+                
+                <div class="dropdown">
+                    <button class="action-btn" id="themeToggle" title="تغيير الثيم">
+                        <i class="fas fa-palette"></i>
+                        <span class="action-text">الثيم</span>
+                    </button>
+                    <div class="dropdown-content" id="themeDropdown">
+                        <!-- سيتم ملؤها ديناميكياً -->
+                    </div>
+                </div>
+                
+                <button class="action-btn" id="favoritesToggle" title="المفضلة">
+                    <i class="fas fa-heart"></i>
+                    <span class="action-text">المفضلة</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1></h1>
+        
+        <ul class="stories-list" id="storiesList">
+            <!-- سيتم ملؤها بالجافاسكريبت -->
+        </ul>
+    </div>
+
+    <footer>
+        <div class="copyright">
+            &copy;  Najla+ 2025 {لا تنسوا الدعاء لاخواننا في فلسطين 🇵🇸}   ;
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        // متغيرات التطبيق
+        let storiesData = [];
+        let themesData = [
+            {
+                name: "default",
+                label: "افتراضي",
+                icon: "star"
+            },
+            {
+                name: "dark",
+                label: "داكن",
+                icon: "moon"
+            },
+            {
+                name: "nature",
+                label: "طبيعة",
+                icon: "leaf"
+            },
+            {
+                name: "royal",
+                label: "ملكي",
+                icon: "crown"
+            },
+            {
+                name: "warm",
+                label: "دافئ",
+                icon: "sun"
+            },
+            {
+                name: "cool",
+                label: "بارد",
+                icon: "snowflake"
+            },
+            {
+                name: "sunset",
+                label: "غروب",
+                icon: "cloud-sun"
+            },
+            {
+                name: "ocean",
+                label: "محيط",
+                icon: "water"
+            }
+        ];
+        let currentStories = [];
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        let isShowingFavorites = false;
+        let selectedGenre = null;
+
+        // التحقق من حالة الاتصال
+        function checkOnlineStatus() {
+            const offlineMessage = document.getElementById('offlineMessage');
+            if (!navigator.onLine) {
+                offlineMessage.style.display = 'block';
+            } else {
+                offlineMessage.style.display = 'none';
+            }
+        }
+
+        // جلب بيانات القصص من ملف JSON
+        async function fetchStoriesData() {
+            try {
+                // التحقق من الاتصال أولاً
+                if (!navigator.onLine) {
+                    throw new Error('لا يوجد اتصال بالإنترنت');
+                }
+
+                const response = await fetch('stories-data.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // التحقق من صحة البيانات
+                if (!Array.isArray(data)) {
+                    throw new Error('تنسيق ملف القصص غير صالح - يجب أن يكون مصفوفة');
+                }
+                
+                // التحقق من وجود الخصائص الأساسية في كل قصة
+                data.forEach((story, index) => {
+                    if (!story.title || !story.genre || !story.filename) {
+                        throw new Error(`القصة في الفهرس ${index} تفتقد خصائص أساسية (title, genre, filename)`);
+                    }
+                });
+                
+                storiesData = data;
+                setupGenreFilter();
+                currentStories = [...storiesData];
+                renderStories(currentStories);
+                
+                return true;
+                
+            } catch (error) {
+                console.error('حدث خطأ في جلب القصص:', error);
+                
+                // إظهار رسالة الخطأ
+                document.getElementById('dataErrorMessage').style.display = 'block';
+                
+                // استخدام بيانات افتراضية إذا فشل جلب ملف JSON
+                storiesData = [
+                    {
+                        title: "قصة تجريبية",
+                        genre: ["تجريبية"],
+                        filename: "default-story.html",
+                        description: "هذه قصة تجريبية فقط"
+                    }
+                ];
+                
+                setupGenreFilter();
+                currentStories = [...storiesData];
+                renderStories(currentStories);
+                
+                return false;
+            }
+        }
+
+        // ملء قائمة الثيمات في القائمة المنسدلة
+        function populateThemeDropdown() {
+            const themeDropdown = document.getElementById('themeDropdown');
+            themeDropdown.innerHTML = '';
+            
+            themesData.forEach(theme => {
+                const option = document.createElement('div');
+                option.className = 'dropdown-option';
+                option.dataset.theme = theme.name;
+                option.innerHTML = `
+                    <i class="fas fa-${theme.icon}"></i> ${theme.label}
+                `;
+                option.addEventListener('click', () => applyTheme(theme.name));
+                themeDropdown.appendChild(option);
+            });
+        }
+
+        // تطبيق الثيم المحدد
+        function applyTheme(themeName) {
+            // إزالة جميع كلاسات الثيمات الحالية
+            document.body.classList.remove(...document.body.classList);
+            // إضافة الثيم الجديد
+            document.body.classList.add(`theme-${themeName}`);
+            
+            // حفظ الثيم المختار
+            localStorage.setItem('theme', themeName);
+            document.getElementById('themeDropdown').classList.remove('show');
+            
+            showToast(`تم تطبيق ثيم ${themesData.find(t => t.name === themeName).label}`);
+        }
+
+        // تحميل الثيم المحفوظ
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'default';
+            applyTheme(savedTheme);
+        }
+
+        // إعداد تصفية الأنواع
+        function setupGenreFilter() {
+            const genreDropdown = document.getElementById('genreDropdown');
+            genreDropdown.innerHTML = '';
+            
+            const allGenres = new Set();
+            
+            // جمع كل الأنواع الفريدة
+            storiesData.forEach(story => {
+                if (Array.isArray(story.genre)) {
+                    story.genre.forEach(g => allGenres.add(g));
+                } else {
+                    allGenres.add(story.genre);
+                }
+            });
+            
+            // إضافة خيار "الكل"
+            const allOption = document.createElement('div');
+            allOption.className = 'dropdown-option';
+            allOption.textContent = 'الكل';
+            allOption.addEventListener('click', () => {
+                selectedGenre = null;
+                applyFilters();
+                document.getElementById('genreDropdown').classList.remove('show');
+            });
+            genreDropdown.appendChild(allOption);
+            
+            // إضافة كل الأنواع
+            allGenres.forEach(genre => {
+                const option = document.createElement('div');
+                option.className = 'dropdown-option';
+                option.textContent = genre;
+                option.addEventListener('click', () => {
+                    selectedGenre = genre;
+                    applyFilters();
+                    document.getElementById('genreDropdown').classList.remove('show');
+                });
+                genreDropdown.appendChild(option);
+            });
+        }
+
+        // عرض القصص
+        function renderStories(storiesToRender) {
+            const storiesList = document.getElementById('storiesList');
+            storiesList.innerHTML = '';
+            
+            if (storiesToRender.length === 0) {
+                storiesList.innerHTML = '<li style="text-align: center; padding: 40px 20px; color: var(--text-color);">لا توجد قصص متطابقة مع بحثك</li>';
+                return;
+            }
+
+            storiesToRender.forEach(story => {
+                const isFavorite = favorites.includes(story.filename);
+                
+                const li = document.createElement('li');
+                li.className = 'story-item';
+                li.innerHTML = `
+                    <div class="story-header">
+                        <span class="story-title">${story.title}</span>
+                        <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-filename="${story.filename}" title="${isFavorite ? 'إزالة من المفضلة' : 'إضافة إلى المفضلة'}">
+                            <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="story-footer">
+                        <span class="story-genre">${Array.isArray(story.genre) ? story.genre.join('، ') : story.genre}</span>
+                        <span style="width: 28px;"></span> <!-- مساحة فارغة لمحاذاة النوع مع اليسار -->
+                    </div>
+                `;
+                
+                // عند النقر على القصة يتم الانتقال إليها مباشرة
+                li.addEventListener('click', function(e) {
+                    if (!e.target.classList.contains('favorite-btn') && !e.target.closest('.favorite-btn')) {
+                        showToast(`سيتم عرض قصة "${story.title}" في صفحة جديدة`, false);
+                        // window.location.href = `stories/${story.filename}`;
+                    }
+                });
+                
+                storiesList.appendChild(li);
+            });
+
+            // إضافة أحداث لأزرار المفضلة
+            document.querySelectorAll('.favorite-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const filename = this.getAttribute('data-filename');
+                    toggleFavorite(filename);
+                });
+            });
+        }
+
+        // تبديل المفضلة
+        function toggleFavorite(filename) {
+            const index = favorites.indexOf(filename);
+            
+            if (index === -1) {
+                favorites.push(filename);
+                showToast(`تمت إضافة القصة إلى المفضلة`);
+            } else {
+                favorites.splice(index, 1);
+                showToast(`تمت إزالة القصة من المفضلة`);
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            
+            // إذا كنا في وضع عرض المفضلة، قم بتحديث العرض
+            if (isShowingFavorites) {
+                currentStories = storiesData.filter(story => favorites.includes(story.filename));
+                renderStories(currentStories);
+            } else {
+                // تحديث حالة زر القلب فقط
+                document.querySelectorAll(`.favorite-btn[data-filename="${filename}"]`).forEach(btn => {
+                    btn.classList.toggle('active');
+                    btn.innerHTML = `<i class="${favorites.includes(filename) ? 'fas' : 'far'} fa-heart"></i>`;
+                    btn.setAttribute('title', favorites.includes(filename) ? 'إزالة من المفضلة' : 'إضافة إلى المفضلة');
+                });
+            }
+        }
+
+        // عرض إشعار توست
+        function showToast(message, isError = false) {
+            Toastify({
+                text: message,
+                duration: 3000,
+                gravity: "top",
+                position: "left",
+                backgroundColor: isError ? "var(--favorite-color)" : "var(--primary-color)",
+                stopOnFocus: true
+            }).showToast();
+        }
+
+        // تطبيق الفلاتر الحالية
+        function applyFilters() {
+            let filteredStories = [...storiesData];
+            
+            // تصفية حسب البحث
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            if (searchQuery) {
+                filteredStories = filteredStories.filter(story => 
+                    story.title.toLowerCase().includes(searchQuery) ||
+                    (Array.isArray(story.genre) ? 
+                        story.genre.some(g => g.toLowerCase().includes(searchQuery)) :
+                        story.genre.toLowerCase().includes(searchQuery)
+                    ) ||
+                    (story.description && story.description.toLowerCase().includes(searchQuery))
+                );
+            }
+            
+            // تصفية حسب النوع
+            if (selectedGenre) {
+                filteredStories = filteredStories.filter(story => 
+                    Array.isArray(story.genre) ? 
+                        story.genre.includes(selectedGenre) :
+                        story.genre === selectedGenre
+                );
+            }
+            
+            // تصفية حسب المفضلة إذا كان الخيار مفعل
+            if (isShowingFavorites) {
+                filteredStories = filteredStories.filter(story => favorites.includes(story.filename));
+            }
+            
+            currentStories = filteredStories;
+            renderStories(filteredStories);
+        }
+
+        // عرض المفضلة (تعمل كمفتاح تبديل)
+        function toggleFavoritesView() {
+            isShowingFavorites = !isShowingFavorites;
+            
+            if (isShowingFavorites) {
+                if (favorites.length === 0) {
+                    showToast("لا توجد قصص في المفضلة", true);
+                    isShowingFavorites = false;
+                    return;
+                }
+                showToast("عرض المفضلة");
+            } else {
+                showToast("عرض جميع القصص");
+            }
+            
+            applyFilters(); // إعادة تطبيق الفلاتر
+            
+            // تحديث مظهر الزر
+            const btn = document.getElementById('favoritesToggle');
+            if (isShowingFavorites) {
+                btn.style.backgroundColor = "var(--favorite-color)";
+                btn.style.color = "white";
+                btn.style.borderColor = "var(--favorite-color)";
+            } else {
+                btn.style.backgroundColor = "transparent";
+                btn.style.color = "var(--primary-color)";
+                btn.style.borderColor = "var(--primary-color)";
+            }
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', async function() {
+            // التحقق من حالة الاتصال عند التحميل
+            checkOnlineStatus();
+            
+            // إضافة مستمع لتغير حالة الاتصال
+            window.addEventListener('online', checkOnlineStatus);
+            window.addEventListener('offline', checkOnlineStatus);
+            
+            // إعداد زر التواصل مع الإدارة
+            document.getElementById('contactAdminBtn').addEventListener('click', function() {
+                showToast("سيتم فتح نموذج التواصل مع الإدارة");
+                // يمكنك هنا فتح نموذج التواصل أو صفحة الاتصال
+            });
+
+            try {
+                // تحميل القصص
+                const storiesLoaded = await fetchStoriesData();
+                
+                if (!storiesLoaded) {
+                    console.warn('تم استخدام القصص الافتراضية بسبب مشكلة في التحميل');
+                }
+                
+                // تحميل الثيمات
+                populateThemeDropdown();
+                
+                // تحميل الثيم المحفوظ
+                loadSavedTheme();
+                
+            } catch (error) {
+                console.error('خطأ في تهيئة التطبيق:', error);
+                showToast("حدث خطأ في تحميل البيانات الأساسية", true);
+            }
+            
+            // إعداد بقية الأحداث
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('searchIcon').addEventListener('click', applyFilters);
+            
+            document.getElementById('themeToggle').addEventListener('click', function() {
+                document.getElementById('themeDropdown').classList.toggle('show');
+            });
+            
+            document.getElementById('favoritesToggle').addEventListener('click', toggleFavoritesView);
+            document.getElementById('genreToggle').addEventListener('click', function() {
+                document.getElementById('genreDropdown').classList.toggle('show');
+            });
+        });
+
+        // إغلاق القوائم المنسدلة عند النقر خارجها
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('#themeToggle') && !event.target.closest('.dropdown-content')) {
+                document.getElementById('themeDropdown').classList.remove('show');
+            }
+            
+            if (!event.target.matches('#genreToggle') && !event.target.closest('.dropdown-content')) {
+                document.getElementById('genreDropdown').classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
