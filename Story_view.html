@@ -346,7 +346,7 @@
             }
 
             const urlParams = new URLSearchParams(window.location.search);
-            const storyFile = urlParams.get('stories');
+            const storyFile = urlParams.get('story');
 
             if (storyFile) {
                 fetch(`stories/${storyFile}`)
