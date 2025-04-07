@@ -764,26 +764,99 @@
                 </div>
             `;
             
-            // التعديل الرئيسي هنا: الانتقال إلى Story_view.html مع اسم الملف
             li.addEventListener('click', function(e) {
                 if (!e.target.classList.contains('favorite-btn') && !e.target.closest('.favorite-btn')) {
                     window.location.href = `Story_view.html?story=${encodeURIComponent(story.filename)}`;
                 }
             });
             
-            storiesList.appendChild(li);
-        });
-
-        document.querySelectorAll('.favorite-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            // إضافة حدث النقر لزر المفضلة
+            const favoriteBtn = li.querySelector('.favorite-btn');
+            favoriteBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                const filename = this.getAttribute('data-filename');
-                toggleFavorite(filename);
+                toggleFavorite(story.filename);
             });
+            
+            storiesList.appendChild(li);
         });
     }
 
-    // بقية الدوال بدون تغيير (toggleFavorite, showToast, applyFilters, toggleFavoritesView)
+    // تبديل المفضلة
+    function toggleFavorite(filename) {
+        const index = favorites.indexOf(filename);
+        if (index === -1) {
+            favorites.push(filename);
+            showToast("تمت إضافة القصة إلى المفضلة");
+        } else {
+            favorites.splice(index, 1);
+            showToast("تمت إزالة القصة من المفضلة");
+        }
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        
+        // تحديث العرض إذا كنا في وضع عرض المفضلة
+        if (isShowingFavorites) {
+            toggleFavoritesView();
+        } else {
+            renderStories(currentStories);
+        }
+    }
+
+    // عرض رسالة Toast
+    function showToast(message, isError = false) {
+        Toastify({
+            text: message,
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: isError ? "#ff4757" : "#4a6fa5",
+            stopOnFocus: true
+        }).showToast();
+    }
+
+    // تطبيق الفلاتر
+    function applyFilters() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        
+        let filtered = [...storiesData];
+        
+        // تصفية حسب النوع المحدد
+        if (selectedGenre) {
+            filtered = filtered.filter(story => 
+                Array.isArray(story.genre) ? 
+                story.genre.includes(selectedGenre) : 
+                story.genre === selectedGenre
+            );
+        }
+        
+        // تصفية حسب البحث
+        if (searchTerm) {
+            filtered = filtered.filter(story => 
+                story.title.toLowerCase().includes(searchTerm) || 
+                (story.description && story.description.toLowerCase().includes(searchTerm)) ||
+                (Array.isArray(story.genre) ? 
+                    story.genre.some(g => g.toLowerCase().includes(searchTerm)) : 
+                    story.genre.toLowerCase().includes(searchTerm))
+            );
+        }
+        
+        // تصفية المفضلة إذا كان مفعل
+        if (isShowingFavorites) {
+            filtered = filtered.filter(story => favorites.includes(story.filename));
+            document.querySelector('h1').textContent = 'القصص المفضلة';
+        } else {
+            document.querySelector('h1').textContent = 'جميع القصص';
+        }
+        
+        currentStories = filtered;
+        renderStories(currentStories);
+    }
+
+    // تبديل عرض المفضلة
+    function toggleFavoritesView() {
+        isShowingFavorites = !isShowingFavorites;
+        document.getElementById('favoritesToggle').classList.toggle('active');
+        applyFilters();
+    }
 
     // تهيئة الصفحة
     document.addEventListener('DOMContentLoaded', async function() {
@@ -813,22 +886,31 @@
         document.getElementById('searchInput').addEventListener('input', applyFilters);
         document.getElementById('searchIcon').addEventListener('click', applyFilters);
         
-        document.getElementById('themeToggle').addEventListener('click', function() {
+        // تحسين القوائم المنسدلة
+        document.getElementById('themeToggle').addEventListener('click', function(e) {
+            e.stopPropagation();
             document.getElementById('themeDropdown').classList.toggle('show');
+            document.getElementById('genreDropdown').classList.remove('show');
         });
         
-        document.getElementById('favoritesToggle').addEventListener('click', toggleFavoritesView);
-        document.getElementById('genreToggle').addEventListener('click', function() {
+        document.getElementById('favoritesToggle').addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleFavoritesView();
+            document.getElementById('themeDropdown').classList.remove('show');
+            document.getElementById('genreDropdown').classList.remove('show');
+        });
+        
+        document.getElementById('genreToggle').addEventListener('click', function(e) {
+            e.stopPropagation();
             document.getElementById('genreDropdown').classList.toggle('show');
+            document.getElementById('themeDropdown').classList.remove('show');
         });
     });
 
+    // إغلاق القوائم المنسدلة عند النقر خارجها
     document.addEventListener('click', function(event) {
-        if (!event.target.matches('#themeToggle') && !event.target.closest('.dropdown-content')) {
+        if (!event.target.closest('.dropdown')) {
             document.getElementById('themeDropdown').classList.remove('show');
-        }
-        
-        if (!event.target.matches('#genreToggle') && !event.target.closest('.dropdown-content')) {
             document.getElementById('genreDropdown').classList.remove('show');
         }
     });
