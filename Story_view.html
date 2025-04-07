@@ -105,6 +105,7 @@
             line-height: 1.8;
             font-size: 18px;
             text-align: justify;
+            white-space: pre-line;
         }
 
         .author-section {
@@ -269,7 +270,7 @@
             <div>
                 <h1 id="story-title" class="story-title">
                     <span id="story-type" class="story-type" style="display: none;"></span>
-                    <span id="title-text">عنوان القصة</span>
+                    <span id="title-text">جاري تحميل القصة...</span>
                 </h1>
             </div>
             <div class="theme-selector">
@@ -302,7 +303,8 @@
             <div class="author-section">
                 <img id="author-img" class="author-img" src="" alt="صورة المؤلف">
                 <div class="author-info">
-                    <h3 id="author-name" class="author-name">اسم المؤلف</h3>
+                    <h3 id="author-name" class="author-name">جاري التحميل...</h3>
+                    <p id="story-genre" style="color: var(--secondary-color); margin-top: 5px; font-size: 14px;"></p>
                 </div>
             </div>
 
@@ -344,10 +346,10 @@
             }
 
             const urlParams = new URLSearchParams(window.location.search);
-            const storyName = urlParams.get('story');
+            const storyFile = urlParams.get('stories');
 
-            if (storyName) {
-                fetch(`stories/${storyName}.json`)
+            if (storyFile) {
+                fetch(`stories/${storyFile}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
@@ -371,9 +373,10 @@
                 document.getElementById('story-content').innerHTML = storyData.content.replace(/\n/g, '<br>');
                 
                 // عرض نوع القصة إذا كان موجوداً
-                if (storyData.type) {
-                    document.getElementById('story-type').textContent = storyData.type;
-                    document.getElementById('story-type').style.display = 'inline-block';
+                if (storyData.genre) {
+                    const genreText = Array.isArray(storyData.genre) ? 
+                        storyData.genre.join('، ') : storyData.genre;
+                    document.getElementById('story-genre').textContent = genreText;
                 }
 
                 // صورة الكاتب
@@ -392,4 +395,4 @@
         });
     </script>
 </body>
-  </html>
+    </html>
