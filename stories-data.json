@@ -1,0 +1,42 @@
+[
+  {
+    "title": "الرحلة الغامضة",
+    "genre": ["مغامرة", "خيال علمي"],
+    "filename": "mystery-journey.json",
+    "description": "قصة شاب يكتشف بوابة إلى عالم آخر في منزله القديم",
+    "author": "أحمد محمد",
+    "authorImage": "https://example.com/authors/ahmed.jpg"
+  },
+  {
+    "title": "الحب في زمن الكورونا",
+    "genre": ["رومانسي", "دراما"],
+    "filename": "love-in-covid.json",
+    "description": "قصة حب تزدهر رغم التباعد الاجتماعي والإجراءات الاحترازية",
+    "author": "سارة عبدالله",
+    "authorImage": "https://example.com/authors/sara.jpg"
+  },
+  {
+    "title": "لغز القلعة القديمة",
+    "genre": ["غموض", "إثارة"],
+    "filename": "castle-mystery.json",
+    "description": "مجموعة أصدقاء يحلون لغز اختفاء مالك القلعة الغامض",
+    "author": "خالد سمير",
+    "authorImage": "https://example.com/authors/khaled.jpg"
+  },
+  {
+    "title": "أحلام اليقظة",
+    "genre": ["سيرة ذاتية", "دراما"],
+    "filename": "daydreams.json",
+    "description": "قصة حقيقية لشاب تحول من الفقر إلى النجاح بفضل مثابرته",
+    "author": "ليلى مصطفى",
+    "authorImage": "https://example.com/authors/layla.jpg"
+  },
+  {
+    "title": "المريخ 2050",
+    "genre": ["خيال علمي", "مستقبلي"],
+    "filename": "mars-2050.json",
+    "description": "مستعمرة بشرية على المريخ تواجه تحديات غير متوقعة",
+    "author": "نادر جمال",
+    "authorImage": "https://example.com/authors/nader.jpg"
+  }
+]
