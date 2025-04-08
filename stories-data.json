@@ -1,26 +1,12 @@
 [
   {
-    "title": "الرحلة الغامضة",
-    "genre": ["مغامرة", "خيال علمي"],
-    "filename": "test.json",
-    "description": "قصة شاب يكتشف بوابة إلى عالم آخر في منزله القديم",
-    "author": "أحمد محمد",
-    "authorImage": "https://example.com/authors/ahmed.jpg"
-  },
-  {
-    "title": "الحب في زمن الكورونا",
-    "genre": ["رومانسي", "دراما"],
-    "filename": "love-in-covid.json",
-    "description": "قصة حب تزدهر رغم التباعد الاجتماعي والإجراءات الاحترازية",
-    "author": "سارة عبدالله",
-    "authorImage": "https://example.com/authors/sara.jpg"
-  },
-  {
-    "title": "لغز القلعة القديمة",
-    "genre": ["غموض", "إثارة"],
-    "filename": "castle-mystery.json",
-    "description": "مجموعة أصدقاء يحلون لغز اختفاء مالك القلعة الغامض",
-    "author": "خالد سمير",
-    "authorImage": "https://example.com/authors/khaled.jpg"
-  }
+  "title": "جبر الخواطر ",
+  "genre": [
+    "دراما",
+    "اجتماعي",
+    "ديني"
+  ],
+  "filename": "gbr_alkhwatr.json",
+  "author": "غير معروف"
+},
 ]
