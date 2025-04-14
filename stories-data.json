@@ -1,32 +1,38 @@
 [
   {
     "title": "جبر الخواطر",
-    "genre": [
-      "دراما",
-      "اجتماعي",
-      "ديني"
-    ],
-    "filename": "gbr_alkhwatr.json",
+    "genre": ["دراما", "اجتماعي", "ديني", "عبرة"],
+    "filename": "jbr_alkhwatr.json",
     "author": "غير معروف"
   },
   {
-    "title": "جبر الخواطر",
-    "genre": [
-      "دراما",
-      "اجتماعي",
-      "ديني"
-    ],
-    "filename": "gbr_alkhwatr.json",
-    "author": "غير معروف"
+    "title": "الزوجة الصالحه و زوجها",
+    "genre": ["اجتماعي", "ديني", "عبرة"],
+    "filename": "alzwjh_alsalhh_w_zwjha.json",
+    "author": "محمد الوايلي"
   },
   {
-    "title": "جبر الخواطر",
-    "genre": [
-      "دراما",
-      "اجتماعي",
-      "ديني"
-    ],
-    "filename": "gbr_alkhwatr.json",
-    "author": "غير معروف"
+    "title": "وعاء الشيخ الفقير",
+    "genre": ["غموض", "اجتماعي", "ديني", "عبرة"],
+    "filename": "waaa_alshykh_alfqyr.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "الجزاء من جنس العمل",
+    "genre": ["واقعية", "حقيقية", "عبرة"],
+    "filename": "aljzaa_mn_jns_alaml.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "الهدية تغسل القلوب",
+    "genre": ["اجتماعي", "واقعية", "عبرة"],
+    "filename": "alhdyh_tghsl_alqlwb.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "القوة والضعف",
+    "genre": ["اجتماعي", "واقعية", "عبره"],
+    "filename": "alqwh_waldaf.json",
+    "author": "Najla+"
   }
 ]
