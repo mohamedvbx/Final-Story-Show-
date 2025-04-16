@@ -1,38 +1,156 @@
 [
   {
     "title": "جبر الخواطر",
-    "genre": ["دراما", "اجتماعي", "ديني", "عبرة"],
+    "genre": [
+      "دراما",
+      "اجتماعي",
+      "ديني"
+    ],
     "filename": "jbr_alkhwatr.json",
-    "author": "غير معروف"
-  },
-  {
-    "title": "الزوجة الصالحه و زوجها",
-    "genre": ["اجتماعي", "ديني", "عبرة"],
-    "filename": "alzwjh_alsalhh_w_zwjha.json",
-    "author": "محمد الوايلي"
+    "author": "Najla+"
   },
   {
     "title": "وعاء الشيخ الفقير",
-    "genre": ["غموض", "اجتماعي", "ديني", "عبرة"],
+    "genre": [
+      "غموض",
+      "اجتماعي",
+      "ديني"
+    ],
     "filename": "waaa_alshykh_alfqyr.json",
     "author": "Najla+"
   },
   {
     "title": "الجزاء من جنس العمل",
-    "genre": ["واقعية", "حقيقية", "عبرة"],
+    "genre": [
+      "واقعية",
+      "حقيقية"
+    ],
     "filename": "aljzaa_mn_jns_alaml.json",
     "author": "Najla+"
   },
   {
     "title": "الهدية تغسل القلوب",
-    "genre": ["اجتماعي", "واقعية", "عبرة"],
+    "genre": [
+      "اجتماعي",
+      "واقعية"
+    ],
     "filename": "alhdyh_tghsl_alqlwb.json",
     "author": "Najla+"
   },
   {
     "title": "القوة والضعف",
-    "genre": ["اجتماعي", "واقعية", "عبره"],
+    "genre": [
+      "اجتماعي",
+      "واقعية",
+      "عبره"
+    ],
     "filename": "alqwh_waldaf.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "الزوجة الصالحه و زوجها",
+    "genre": [
+      "اجتماعي",
+      "ديني"
+    ],
+    "filename": "alzwjh_alsalhh_w_zwjha.json",
+    "author": "محمد الوايلي"
+  },
+  {
+    "title": "أستاذي أرجوك لا تحطمني",
+    "genre": [
+      "نجاح"
+    ],
+    "filename": "astadhy_arjwk_la_thtmny.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "الحياة",
+    "genre": [
+      "عبرة"
+    ],
+    "filename": "alhyah.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "الإسكافي مدرساً",
+    "genre": [
+      "اجتماعي",
+      "نجاح",
+      "عبرة"
+    ],
+    "filename": "aleskafy_mdrsa.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "الاعمي وسرقة النخلة",
+    "genre": [
+      "مغامرات",
+      "عبرة"
+    ],
+    "filename": "alaamy_wsrqh_alnkhlh.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "والاس جونسون",
+    "genre": [
+      "اجتماعي",
+      "عبرة"
+    ],
+    "filename": "walas_jwnswn.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "الرياضيات",
+    "genre": [
+      "نجاح",
+      "عبرة"
+    ],
+    "filename": "alryadyat.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "العالم والامير المستبد",
+    "genre": [
+      "ديني",
+      "عبرة"
+    ],
+    "filename": "alaalm_walamyr_almstbd.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "شاب في المنجم",
+    "genre": [
+      "عبرة"
+    ],
+    "filename": "shab_fy_almnjm.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "التسرع بالحكم",
+    "genre": [
+      "اجتماعي",
+      "عبرة"
+    ],
+    "filename": "altsra_balhkm.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "لغز أويغين جيلتنر",
+    "genre": [
+      "غموض",
+      "واقعية"
+    ],
+    "filename": "lghz_awyghyn_jyltnr.json",
+    "author": "Najla+"
+  },
+  {
+    "title": "سفينة الأشباح \"إس إس فالنسيا\"",
+    "genre": [
+      "غموض",
+      "واقعية"
+    ],
+    "filename": "sfynh_alashbah_es_es_falnsya.json",
     "author": "Najla+"
   }
 ]
